@@ -43,7 +43,7 @@ bot.on('message', msg => {
   var channel = msg.channel;
   var author = msg.author;
   if (msg.content.startsWith('!offline')) {
-    let matched = msg.content.match(/<@([0-9]+)>/);
+    let matched = msg.content.match(/<@!?([0-9]+)>/);
     if (!matched) {
       return;
     }
