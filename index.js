@@ -8,6 +8,10 @@ const bot = new Discord.Client();
 
 var offlineMap = {};
 
+var commands = {
+  '!offline': 'Given a username, check how long its been since they have been online.\nUsage !offline <username>'
+};
+
 bot.on('ready', () => {
   bot.users.forEach((user) => {
     if(user.bot) {
@@ -35,10 +39,10 @@ bot.on('message', msg => {
   if (msg.channel.type === 'dm') {
     return;
   }
+  var guild = msg.guild;
+  var channel = msg.channel;
+  var author = msg.author;
   if (msg.content.startsWith('!offline')) {
-    var guild = msg.guild;
-    var channel = msg.channel;
-    var author = msg.author;
     let matched = msg.content.match(/<@([0-9]+)>/);
     if (!matched) {
       return;
@@ -46,30 +50,37 @@ bot.on('message', msg => {
     var id = matched[1];
     var mentionedMember = guild.members.find('id', id);
     if (offlineMap[id]) {
-      channel.sendMessage(author + ' ' + mentionedMember.user.username + ' went offline ' + moment(offlineMap[id]).utc().fromNow() + ' specifically ' + moment(offlineMap[id]).utc().format());
+      channel.sendMessage(author + ' ' + mentionedMember.user.username + ' went offline ' + moment(offlineMap[id]).utc().fromNow() + ' @ ' + moment(offlineMap[id]).utc().format());
     } else {
       channel.sendMessage(author + ' ' + mentionedMember.user.username + ' has not gone offline or has not been recorded.');
     }
   }
+  if (msg.content.startsWith('!commands')) {
+    var commandStr = '';
+    for (var command in commands) {
+      commandStr += (command + ': ' + commands[command] + '\n');
+    }
+    channel.sendMessage(commandStr);
+  }
 });
 
-bot.on("guildMemberAdd", (member) => {
+bot.on('guildMemberAdd', (member) => {
   var owner = member.guild.owner;
   var interviewRole = member.guild.roles.find('name', 'Interview');
-  owner.sendMessage(member.user.username + " has joined the server.");
+  owner.sendMessage(member.user.username + ' has joined the server.');
   // For this to work, the Interview role needs to be further down in the list of roles than the Bot role.
   // You also need to grant role permissions to the bot when they join: 
   // https://discordapp.com/oauth2/authorize?client_id=CLIENT_ID_HERE&scope=bot&permissions=0x10000000
   member.addRole(interviewRole).then((response) => {
-    owner.sendMessage(member.user.username + " has been granted the Interview role.");
+    owner.sendMessage(member.user.username + ' has been granted the Interview role.');
   }).catch((reason) => {
     console.error(reason);
   });
 });
 
-bot.on("guildMemberRemove", (member) => {
+bot.on('guildMemberRemove', (member) => {
   var owner = member.guild.owner;
-  owner.sendMessage(member.user.username + " has left the server.");
+  owner.sendMessage(member.user.username + ' has left the server.');
 });
 
 bot.login(cfg.token).then(() => {
