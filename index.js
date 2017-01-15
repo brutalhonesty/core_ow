@@ -40,8 +40,12 @@ bot.on('message', msg => {
     return;
   }
   var guild = msg.guild;
+  var owner = guild.owner;
   var channel = msg.channel;
   var author = msg.author;
+  if (author !== owner) {
+    return;
+  }
   if (msg.content.startsWith('!offline')) {
     let matched = msg.content.match(/<@!?([0-9]+)>/);
     if (!matched) {
@@ -66,7 +70,7 @@ bot.on('message', msg => {
 
 bot.on('guildMemberAdd', (member) => {
   var owner = member.guild.owner;
-  var interviewRole = member.guild.roles.find('name', 'Interview');
+  var interviewRole = member.guild.roles.find('name', 'INTERVIEW');
   owner.sendMessage(member.user.username + ' has joined the server.');
   // For this to work, the Interview role needs to be further down in the list of roles than the Bot role.
   // You also need to grant role permissions to the bot when they join: 
