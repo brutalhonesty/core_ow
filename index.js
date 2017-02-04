@@ -70,13 +70,13 @@ bot.on('message', msg => {
 
 bot.on('guildMemberAdd', (member) => {
   var owner = member.guild.owner;
-  var interviewRole = member.guild.roles.find('name', 'PROSPECT');
+  var interviewRole = member.guild.roles.find('name', 'INTERVIEW');
   owner.sendMessage(member.user.username + ' has joined the server.');
   // For this to work, the Interview role needs to be further down in the list of roles than the Bot role.
   // You also need to grant role permissions to the bot when they join: 
   // https://discordapp.com/oauth2/authorize?client_id=CLIENT_ID_HERE&scope=bot&permissions=0x10000000
   member.addRole(interviewRole).then((response) => {
-    owner.sendMessage(member.user.username + ' has been granted the prospect role.');
+    owner.sendMessage(member.user.username + ' has been granted the INTERVIEW role.');
   }).catch((reason) => {
     console.error(reason);
   });
