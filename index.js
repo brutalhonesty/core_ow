@@ -12,6 +12,8 @@ var commands = {
   '!offline': 'Given a username, check how long its been since they have been online.\nUsage !offline <username>'
 };
 
+var welcomeMessage = "**Hello and welcome, my name is Jarvis and I will help you get started here in CORE Overwatch**\n\n■ **Step 1: go to START to learn more about CORE**\n\n■ **Step 2: review PROSPECT - TRYOUT - INTERVIEW**\n\n■ **Step 3: You will receive a direct message from one of our Leadership members soon**\n{because apparently I am not very \"personable\", I'd like to see GLaDOS do a better job}\n\n**I am glad that I could assist you today**";
+
 bot.on('ready', () => {
   bot.users.forEach((user) => {
     if(user.bot) {
@@ -80,6 +82,7 @@ bot.on('guildMemberAdd', (member) => {
   }).catch((reason) => {
     console.error(reason);
   });
+  member.sendMessage(welcomeMessage);
 });
 
 bot.on('guildMemberRemove', (member) => {
