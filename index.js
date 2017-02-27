@@ -6,6 +6,9 @@ const moment = require('moment');
 const cfg = require('./config.js');
 const bot = new Discord.Client();
 
+const titusId = '164234545061822464';
+const neosiusId = '162648531688095744';
+
 var offlineMap = {};
 
 var commands = {
@@ -72,13 +75,21 @@ bot.on('message', msg => {
 
 bot.on('guildMemberAdd', (member) => {
   var owner = member.guild.owner;
+  var titus = member.guild.members.find('id', titusId);
+  var neosius = member.guild.members.find('id', neosiusId);
   var interviewRole = member.guild.roles.find('name', 'PROSPECT');
-  owner.sendMessage(member.user.username + ' has joined the server.');
+  var joinMessage = member.user.username + ' has joined the server.';
+  owner.sendMessage(joinMessage);
+  titus.sendMessage(joinMessage);
+  neosius.sendMessage(joinMessage);
   // For this to work, the Interview role needs to be further down in the list of roles than the Bot role.
   // You also need to grant role permissions to the bot when they join: 
   // https://discordapp.com/oauth2/authorize?client_id=CLIENT_ID_HERE&scope=bot&permissions=0x10000000
   member.addRole(interviewRole).then((response) => {
-    owner.sendMessage(member.user.username + ' has been granted the PROSPECT role.');
+    var roleGrantMessage = member.user.username + ' has been granted the PROSPECT role.';
+    owner.sendMessage(roleGrantMessage);
+    titus.sendMessage(roleGrantMessage);
+    neosius.sendMessage(roleGrantMessage);
   }).catch((reason) => {
     console.error(reason);
   });
@@ -87,7 +98,12 @@ bot.on('guildMemberAdd', (member) => {
 
 bot.on('guildMemberRemove', (member) => {
   var owner = member.guild.owner;
-  owner.sendMessage(member.user.username + ' has left the server.');
+  var titus = member.guild.members.find('id', titusId);
+  var neosius = member.guild.members.find('id', neosiusId);
+  var leftMessage = member.user.username + ' has left the server.';
+  owner.sendMessage(leftMessage);
+  titus.sendMessage(leftMessage);
+  neosius.sendMessage(leftMessage);
 });
 
 bot.login(cfg.token).then(() => {
