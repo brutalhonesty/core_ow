@@ -4,14 +4,14 @@
   "description": "Core OW Discord Bot",
   "homepage": "https://github.com/brutalhonesty/core_ow#readme",
   "author": "Adam Schodde <sparky1010@gmail.com>",
-  "files": [
-  ],
-  "main": "index.js",
+  "files": [],
+  "main": "src/index.js",
   "keywords": [
     "overwatch",
     "discord"
   ],
   "scripts": {
+    "build": "babel src -d lib"
   },
   "repository": {
     "type": "git",
@@ -24,9 +24,12 @@
   "dependencies": {
     "discord.js": "^10.0.1",
     "moment": "^2.17.1",
-    "uws": "^0.14.1"
+    "uws": "^0.14.1",
+    "twitch-api": "^0.4.6"
   },
   "devDependencies": {
+    "babel-cli": "^6.24.0",
+    "babel-preset-es2015": "^6.24.0"
   },
   "eslintConfig": {
     "extends": "xo-space",
