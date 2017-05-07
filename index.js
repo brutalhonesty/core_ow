@@ -14,7 +14,7 @@ var commands = {
   '!offline': 'Given a username, check how long its been since they have been online.\nUsage !offline <username>'
 };
 
-var welcomeMessage = "**Hello and welcome, my name is Jarvis and I will help you get started here in CORE**\n\n■ **To learn more about CORE click on READ**\n\n■ **If you are looking to join a Team, become a Captain or Coach click on PROSPECTS**\n\n■ **If you have been recruited and are trying out for a team click on TRYOUT.**\n\n■ **If you have further questions please reach out directly to DPHIANCE the Owner of CORE**\n{because apparently I am not very \"personable\", I'd like to see GLaDOS do a better job}\n\n**I am glad that I could assist you today**";
+var welcomeMessage = "Hello and welcome, my name is Jarvis and I will help you get started here in CORE\n\n■ To learn more about CORE and how to get started click on the ABOUT section\n\n■ If you have further questions or need help please reach out directly to an OWNER\n{because apparently I am not very \"personable\", I'd like to see GLaDOS do a better job}\n\nI am glad that I could assist you today";
 
 bot.on('ready', () => {
   bot.users.forEach((user) => {
